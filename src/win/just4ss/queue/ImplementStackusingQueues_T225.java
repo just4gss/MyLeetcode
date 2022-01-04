@@ -1,9 +1,6 @@
 package win.just4ss.queue;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class ImplementStackusingQueues_T225 {
     //225.Implement Stack using Queues
@@ -41,43 +38,39 @@ public class ImplementStackusingQueues_T225 {
     链接：https://leetcode-cn.com/problems/implement-stack-using-queues
     著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-    //1 2 3 4
-    //4 3 2 1
-
-    //和232类似
+    //直接用Deque有点耍赖…………
     class MyStack {
         Queue<Integer> inputQueue;
-        Queue<Integer> outputQueue;
+        Queue<Integer> assistQueue;
         public MyStack() {
-            inputQueue = new LinkedList<>();
-            outputQueue = new LinkedList<>();
+            inputQueue  = new LinkedList<>();
+            assistQueue = new LinkedList<>();
         }
 
         public void push(int x) {
-            if(inputQueue.isEmpty()) {
-                switchQueue(outputQueue, inputQueue);
+            //元素都给辅助队列
+            while (!inputQueue.isEmpty()) {
+                assistQueue.offer(inputQueue.poll());
             }
+            //进入输入队列
             inputQueue.offer(x);
+            //把辅助队列的放回去
+            while (!assistQueue.isEmpty()) {
+                inputQueue.offer(assistQueue.poll());
+            }
+
         }
 
         public int pop() {
-            if (outputQueue.isEmpty()) switchQueue(inputQueue,outputQueue);
-            return outputQueue.poll();
+           return inputQueue.poll();
         }
 
         public int top() {
-            if (outputQueue.isEmpty()) switchQueue(inputQueue,outputQueue);
-            return outputQueue.peek();
+            return inputQueue.peek();
         }
 
         public boolean empty() {
-            return inputQueue.isEmpty() && outputQueue.isEmpty();
-        }
-
-        private void switchQueue(Queue<Integer> queueA, Queue<Integer> queueB) {
-            while(!queueA.isEmpty()) {
-                queueB.offer(queueB.poll());
-            }
+            return inputQueue.isEmpty();
         }
     }
 
