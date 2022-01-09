@@ -8,13 +8,18 @@ public class SimpleBubbleSort {
     public static void bubbleSort(int[] a) {
         int length = a.length;
         for(int i=0; i<length; i++) {
+            //是否有交换
+            boolean flag = false;
             for(int j=0; j<length-i-1; j++) {
                 if(a[j] > a[j+1]) {
                     int tmp = a[j];
                     a[j] = a[j+1];
                     a[j+1] = tmp;
+                    flag = true;
                 }
             }
+            //如果没有交换了，就说明排好了，退出
+            if(!flag) break;
         }
     }
 
