@@ -8,7 +8,7 @@ public class SimpleInsertSort {
     //1 3 4 5 6 2
     //1 2 3 4 5 6
     public static void insertSort(int[] a) {
-        //左边的都是比好的，以此和左边的比，直到找到比他小的
+        //左边的都是比好的，依次和左边的比，直到找到比他小的
         int length = a.length;
         for(int i = 1; i < length; i++) {
             int curr = a[i];
